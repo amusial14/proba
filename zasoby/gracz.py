@@ -12,7 +12,7 @@ class gracz():
         #if not os.path.exists(sciezka_do_obrazka):
             #raise FileNotFoundError(f"Nie znaleziono pliku: {sciezka_do_obrazka}")
         
-        self.obraz = pg.image.load("zasoby/spritey/parszywek1.png").convert_alpha()
+        self.obraz = pg.image.load("spritey/parszywek1.png").convert_alpha()
         sciezka_obrazka = os.path.join(os.path.dirname(__file__), "spritey", "parszywek1.png")
         self.obraz = pg.image.load(sciezka_obrazka).convert_alpha()
         self.obraz = pg.transform.scale(self.obraz, (70, 90)) 
