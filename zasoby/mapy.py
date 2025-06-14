@@ -10,12 +10,17 @@ class Mapa:
         self.tekstura = tekstura
         self.gra = gra
         self.polaczenia = {}
+        self.przedmioty = []
+        self.psy = []
     
     def dodaj_polaczenie(self, kierunek, indeks_mapy_docelowej):
         self.polaczenia[kierunek] = indeks_mapy_docelowej
 
     def dodaj_przedmiot(self, przedmiot):
         self.przedmioty.append(przedmiot)
+
+    def dodaj_psa(self, pies):
+        self.psy.append(pies)
     
     def sprawdz_krawedzie(self):
         gracz = self.gra.gracz
