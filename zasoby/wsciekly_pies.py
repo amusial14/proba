@@ -11,7 +11,7 @@ class WscieklyPies:
         self.predkosc = predkosc
         self.kierunek = 1 
         
-        sciezka_do_obrazka = os.path.join("zasoby", "spritey", "wscieklypies.png")
+        sciezka_do_obrazka = os.path.join("spritey", "wscieklypies.png")
         if not os.path.exists(sciezka_do_obrazka):
             raise FileNotFoundError(f"Nie znaleziono pliku: {sciezka_do_obrazka}")
         
