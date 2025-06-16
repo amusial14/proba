@@ -83,6 +83,7 @@ class WscieklyPies:
         original_image = pg.image.load("spritey/parszywek1.png").convert_alpha()
         self.gra.gracz.obraz = pg.transform.scale(original_image, (70, 90))
         self.gra.gracz.obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
+        pg.time.set_timer(pg.USEREVENT, 1000, loops=1)
 
     def sprawdz_kolizje_z_graczem(self):
         gracz_rect = pg.Rect(self.gra.gracz.x, self.gra.gracz.y,
