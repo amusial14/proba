@@ -136,6 +136,10 @@ class Gra:
             elif zdarz.type == pg.KEYDOWN:
                 if zdarz.key == pg.K_M:  # Naciśnij F1 aby wyświetlić pozycję
                     self.gracz.pokaz_pozycje()
+            
+            elif zdarz.type == pg.KEYDOWN:
+                if zdarz.key == pg.K_q:  # Naciśnij Q
+                    self.gracz.pokaz_wspolrzedne()
     
     def rysuj(self):
         self.ekran.blit(self.tlo, (0, 0)) 
