@@ -9,24 +9,27 @@ class WscieklyPies:
         self.sciezka_ruch = sciezka_ruch
         self.aktualny_cel = 0
         self.predkosc = predkosc
-        self.kierunek = 1 
-        self.ostatnie_ugryzienie = 0 
-        self.cooldown = 2000
-        self.obrazenia = 15
-        self.aktywny_atak = False  # Czy pies aktualnie atakuje
-        self.czas_ataku = 0
-        self.calkowite_obrazenia = 0  # Śledzenie zadanych obrażeń
-        self.max_obrazenia = 15
+        self.kierunek = 1
         
-        sciezka_do_obrazka = os.path.join("spritey", "wscieklypies.png")
-        if not os.path.exists(sciezka_do_obrazka):
-            raise FileNotFoundError(f"Nie znaleziono pliku: {sciezka_do_obrazka}")
+        # Atrybuty do kontroli obrażeń
+        self.obrazenia = 5  # Mniej obrażeń
+        self.aktywny_atak = False
+        self.czas_ostatniego_ataku = 0
+        self.cooldown_ataku = 1000  # 1 sekunda przerwy
+        self.calkowite_obrazenia = 0
+        self.max_obrazen_na_spotkanie = 15  # Maksymalne obrażenia na jedno spotkanie
         
-        self.obraz = pg.image.load(sciezka_do_obrazka).convert_alpha()
-        self.obraz = pg.transform.scale(self.obraz, (120, 120)) 
+        # Ładowanie grafiki
+        sciezka_obrazu = os.path.join("spritey", "wscieklypies.png")
+        if not os.path.exists(sciezka_obrazu):
+            raise FileNotFoundError(f"Nie znaleziono pliku: {sciezka_obrazu}")
+        
+        self.obraz = pg.image.load(sciezka_obrazu).convert_alpha()
+        self.obraz = pg.transform.scale(self.obraz, (120, 120))
         self.rect = self.obraz.get_rect(topleft=(self.x, self.y))
-        
+
     def aktualizuj(self):
+        # Ruch psa (bez zmian)
         cel_x, cel_y = self.sciezka_ruch[self.aktualny_cel]
         dx, dy = cel_x - self.x, cel_y - self.y
         odleglosc = (dx**2 + dy**2)**0.5
@@ -42,28 +45,50 @@ class WscieklyPies:
             self.x += (dx / odleglosc) * self.predkosc
             self.y += (dy / odleglosc) * self.predkosc
         
-        
         self.rect.topleft = (self.x, self.y)
 
-    teraz = pg.time.get_ticks()
-    if self.sprawdz_kolizje_z_graczem():
-            if not hasattr(self.gra.gracz, 'ostatnie_obrazenia'):
-                self.gra.gracz.ostatnie_obrazenia = 0
-                
-            if teraz - self.gra.gracz.ostatnie_obrazenia > 1000:
-                self.gra.gracz.energia = max(0, self.gra.gracz.energia - 5)
-                self.gra.gracz.ostatnie_obrazenia = teraz
-                print(f"Ugryzienie! -5 energii (Pozostało: {self.gra.gracz.energia})")
-    
-        
-        
+        # Ulepszony system obrażeń
+        teraz = pg.time.get_ticks()
+        if self.sprawdz_kolizje_z_graczem():
+            if not self.aktywny_atak and self.calkowite_obrazenia < self.max_obrazen_na_spotkanie:
+                self.rozpocznij_atak(teraz)
+            elif (self.aktywny_atak and 
+                  teraz - self.czas_ostatniego_ataku > self.cooldown_ataku and
+                  self.calkowite_obrazenia < self.max_obrazen_na_spotkanie):
+                self.kontynuuj_atak(teraz)
+        else:
+            self.zakoncz_atak()
 
-    
+    def rozpocznij_atak(self, czas):
+        self.aktywny_atak = True
+        self.czas_ostatniego_ataku = czas
+        self.zadaj_obrazenia()
+
+    def kontynuuj_atak(self, czas):
+        self.czas_ostatniego_ataku = czas
+        self.zadaj_obrazenia()
+
+    def zakoncz_atak(self):
+        if self.aktywny_atak:
+            self.aktywny_atak = False
+            # Resetuj licznik po 2 sekundach od ostatniego kontaktu
+            pg.time.set_timer(pg.USEREVENT, 2000, loops=1)
+
+    def zadaj_obrazenia(self):
+        self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
+        self.calkowite_obrazenia += self.obrazenia
+        print(f"Pies ugryzł! -{self.obrazenia} energii (Łącznie: {self.calkowite_obrazenia}/{self.max_obrazen_na_spotkanie})")
+        
+        # Wizualna informacja o ugryzieniu
+        original_image = pg.image.load("spritey/parszywek1.png").convert_alpha()
+        self.gra.gracz.obraz = pg.transform.scale(original_image, (70, 90))
+        self.gra.gracz.obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
+
     def sprawdz_kolizje_z_graczem(self):
-        gracz_rect = pg.Rect(self.gra.gracz.x, self.gra.gracz.y, 
-                            self.gra.gracz.obraz.get_width(), 
-                            self.gra.gracz.obraz.get_height())
+        gracz_rect = pg.Rect(self.gra.gracz.x, self.gra.gracz.y,
+                           self.gra.gracz.obraz.get_width(),
+                           self.gra.gracz.obraz.get_height())
         return self.rect.colliderect(gracz_rect)
-    
+
     def rysuj(self):
         self.gra.ekran.blit(self.obraz, (self.x, self.y))
