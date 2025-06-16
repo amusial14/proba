@@ -119,6 +119,13 @@ class Gra:
                 pg.quit()
                 sys.exit()
             elif zdarz.type == pg.KEYDOWN:
+                if zdarz.key == pg.K_q:
+                    self.gracz.pokaz_wspolrzedne()
+                # Dodatkowo pokażemy pozycję na ekranie
+                    font = pg.font.SysFont(None, 30)
+                    debug_text = font.render(f"X:{self.gracz.x:.0f} Y:{self.gracz.y:.0f}", True, (255, 0, 0))
+                    self.ekran.blit(debug_text, (self.gracz.x, self.gracz.y - 20))
+                
                 if zdarz.key == pg.K_e:
                     for przedmiot in self.przedmioty:
                         if przedmiot.sprawdz_kolizje_z_graczem() and not przedmiot.podniesiony:
@@ -137,9 +144,6 @@ class Gra:
                 if zdarz.key == pg.K_M:  # Naciśnij F1 aby wyświetlić pozycję
                     self.gracz.pokaz_pozycje()
             
-            elif zdarz.type == pg.KEYDOWN:
-                if zdarz.key == pg.K_q:  # Naciśnij Q
-                    self.gracz.pokaz_wspolrzedne()
     
     def rysuj(self):
         self.ekran.blit(self.tlo, (0, 0)) 
