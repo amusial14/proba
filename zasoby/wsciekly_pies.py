@@ -12,7 +12,9 @@ class WscieklyPies:
         self.kierunek = 1 
         self.ostatnie_ugryzienie = 0 
         self.cooldown = 2000
-        self.obrazenia = 3
+        self.obrazenia = 10
+        self.aktywny_atak = False  # Czy pies aktualnie atakuje
+        self.czas_ataku = 0
         
         sciezka_do_obrazka = os.path.join("spritey", "wscieklypies.png")
         if not os.path.exists(sciezka_do_obrazka):
@@ -47,12 +49,29 @@ class WscieklyPies:
             print("Pies ugryzł gracza! -5 energii")
 
         teraz = pg.time.get_ticks()
-        if self.sprawdz_kolizje_z_graczem():
-            if teraz - self.gra.gracz.ostatnie_obrazenia > self.gra.gracz.immunitet:
-                self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
-                self.gra.gracz.ostatnie_obrazenia = teraz
-                print(f"Pies ugryzł gracza! -{self.obrazenia} energii (Immunitet do: {teraz + self.gra.gracz.immunitet}ms)")
-                  
+        if self.sprawdz_kolizje_z_graczem() and self.gra.gracz.obrazenia_aktywne:
+            if not self.aktywny_atak:
+                # Rozpocznij atak
+                self.aktywny_atak = True
+                self.czas_ataku = teraz
+                self.zadaj_obrazenia()
+            elif teraz - self.czas_ataku > 1000:  # Nowy atak co sekundę
+                self.czas_ataku = teraz
+                self.zadaj_obrazenia()
+        else:
+            self.aktywny_atak = False
+
+    def zadaj_obrazenia(self):
+        self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
+        self.gra.gracz.obrazenia_aktywne = False
+        self.gra.gracz.czas_immunitetu = pg.time.get_ticks()
+        print(f"Pies ugryzł! -{self.obrazenia} energii")
+        
+        # Wizualna informacja o ugryzieniu
+        self.gra.gracz.obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
+        
+        # Timer do przywrócenia normalnego stanu
+        pg.time.set_timer(pg.USEREVENT, self.gra.gracz.dlugosc_immunitetu)
 
     
     def sprawdz_kolizje_z_graczem(self):
