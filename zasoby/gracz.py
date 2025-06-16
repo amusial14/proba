@@ -38,7 +38,9 @@ class gracz():
         klawisze = pg.key.get_pressed()
 
         dx, dy = 0, 0
-        
+        if klawisze[pg.K_h]:  # Naciśnij H aby wyświetlić pozycję
+            print(f"Aktualna pozycja: X={self.x} Y={self.y}")
+            print(f"Kolor pod szczurkiem: {self.gra.ekran.get_at((int(self.x), int(self.y)))}")
         if klawisze[pg.K_UP]:  
             dy = -self.szybkosc
         elif klawisze[pg.K_DOWN]:  
