@@ -79,9 +79,9 @@ class Gra:
         self.mapy[10].dodaj_polaczenie("prawo", 0)
 
         sciezka_ruch_niepolda = [
-            (200, 400),  # Punkt startowy
-            (1000, 400), # Punkt końcowy
-            (200, 400)   # Powrót do punktu startowego (zapętlenie)
+            (375, 420),  # Punkt startowy
+            (950, 420), # Punkt końcowy
+            (375, 420)   # Powrót do punktu startowego (zapętlenie)
         ]
 
         pies_niepolda = WscieklyPies(self, 200, 400, sciezka_ruch_niepolda)
