@@ -40,9 +40,16 @@ class WscieklyPies:
         
         
         if self.sprawdz_kolizje_z_graczem():
-            if self.sprawdz_kolizje_z_graczem():
-                self.gra.gracz.energia = max(0, self.gra.gracz.energia - 10)
-                print("Pies ugryzł gracza! -10 energii")
+            self.gra.gracz.energia = max(0, self.gra.gracz.energia - 5)
+            print("Pies ugryzł gracza! -5 energii")
+
+        teraz = pg.time.get_ticks()
+        if self.sprawdz_kolizje_z_graczem() and teraz - self.ostatnie_ugryzienie > self.cooldown:
+            self.gra.gracz.energia = max(0, self.gra.gracz.energia - 5)
+            self.ostatnie_ugryzienie = teraz
+            print("Pies ugryzł gracza! -5 energii")
+
+                  
 
     
     def sprawdz_kolizje_z_graczem(self):
