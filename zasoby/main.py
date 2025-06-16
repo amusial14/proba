@@ -76,6 +76,15 @@ class Gra:
         self.mapy[9].dodaj_polaczenie("dol", 6)
         self.mapy[0].dodaj_polaczenie("lewo", 10)
         self.mapy[10].dodaj_polaczenie("prawo", 0)
+
+         sciezka_ruch_niepolda = [
+        (200, 400), 
+        (1000, 400), 
+        (200, 400)  
+        ]
+
+        pies_niepolda = WscieklyPies(self, 200, 400, sciezka_ruch_niepolda)
+        self.mapy[10].dodaj_psa(pies_niepolda)
         #tu można dodać więcej połączeń, przedmioty i psów
 
     def rysuj_interfejs(self):
