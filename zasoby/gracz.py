@@ -9,6 +9,7 @@ class gracz():
         self.szybkosc = 5
         self.energia = 100
         self.przedmioty_zebrane = []
+        self.ostatnie_obrazenia = 0
         # sciezka_do_obrazka = os.path.join("zasoby/spritey/parszywek1.png")
         
         # if not os.path.exists(sciezka_do_obrazka):
