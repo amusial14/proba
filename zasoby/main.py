@@ -126,14 +126,15 @@ class Gra:
                             print("Przedmiot podniesiony!")
                 elif zdarz.key == pg.K_m: 
                    self.stan_gry = "mapa" 
-            elif zdarz.type == pg.USEREVENT:  # Dodane - obsługa immunitetu
+           elif zdarz.type == pg.USEREVENT+1:  # Koniec efektu wizualnego
                 if hasattr(self.gracz, 'normalny_wyglad'):
                     self.gracz.obraz = self.gracz.normalny_wyglad.copy()
-    
-    # 2. Zresetuj licznik obrażeń (immunitet)
+                pg.time.set_timer(pg.USEREVENT+1, 0)
+
+            elif zdarz.type == pg.USEREVENT+2:  # Koniec immunitetu
                 for pies in self.mapy[self.aktualna_mapa].psy:
                     pies.calkowite_obrazenia = 0
-    
+                pg.time.set_timer(pg.USEREVENT+2, 0)
     # 3. Wyczyść timer
                 pg.time.set_timer(pg.USEREVENT, 0)
     def rysuj(self):
