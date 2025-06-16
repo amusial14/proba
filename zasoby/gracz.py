@@ -14,6 +14,7 @@ class gracz():
         self.obrazenia_aktywne = True  # Czy można otrzymywać obrażenia
         self.czas_immunitetu = 0
         self.dlugosc_immunitetu = 2000
+        self.w_kontakcie_z_psem = False
         # sciezka_do_obrazka = os.path.join("zasoby/spritey/parszywek1.png")
         
         # if not os.path.exists(sciezka_do_obrazka):
