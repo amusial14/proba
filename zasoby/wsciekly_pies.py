@@ -74,17 +74,29 @@ class WscieklyPies:
             # Resetuj licznik po 2 sekundach od ostatniego kontaktu
             pg.time.set_timer(pg.USEREVENT, 2000, loops=1)
 
+    
     def zadaj_obrazenia(self):
+    # Zatrzymaj ewentualne poprzednie timery
+        pg.time.set_timer(pg.USEREVENT, 0)
+    
+    # Obliczanie obrażeń
         self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
         self.calkowite_obrazenia += self.obrazenia
         print(f"Pies ugryzł! -{self.obrazenia} energii (Łącznie: {self.calkowite_obrazenia}/{self.max_obrazen_na_spotkanie})")
-        
-        # Wizualna informacja o ugryzieniu
-        original_image = pg.image.load("spritey/parszywek1.png").convert_alpha()
-        self.gra.gracz.obraz = pg.transform.scale(original_image, (70, 90))
+    
+    # Efekt wizualny
+        if not hasattr(self.gra.gracz, 'original_image'):
+        # Załaduj oryginalny obraz tylko raz
+            self.gra.gracz.original_image = pg.image.load("spritey/parszywek1.png").convert_alpha()
+            self.gra.gracz.original_image = pg.transform.scale(self.gra.gracz.original_image, (70, 90))
+    
+    # Zastosuj czerwony efekt
+        self.gra.gracz.obraz = self.gra.gracz.original_image.copy()
         self.gra.gracz.obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
-        pg.time.set_timer(pg.USEREVENT, 500, loops=1)
-
+    
+    # Ustaw timer na przywrócenie normalnego wyglądu
+        pg.time.set_timer(pg.USEREVENT, 100, loops=1) 
+    # 0.1 sekundy
     def sprawdz_kolizje_z_graczem(self):
         gracz_rect = pg.Rect(self.gra.gracz.x, self.gra.gracz.y,
                            self.gra.gracz.obraz.get_width(),
