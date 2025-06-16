@@ -10,6 +10,8 @@ class WscieklyPies:
         self.aktualny_cel = 0
         self.predkosc = predkosc
         self.kierunek = 1 
+        self.ostatnie_ugryzienie = 0 
+        self.cooldown = 
         
         sciezka_do_obrazka = os.path.join("spritey", "wscieklypies.png")
         if not os.path.exists(sciezka_do_obrazka):
