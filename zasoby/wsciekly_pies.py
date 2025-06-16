@@ -12,7 +12,7 @@ class WscieklyPies:
         self.kierunek = 1 
         self.ostatnie_ugryzienie = 0 
         self.cooldown = 2000
-        self.obrazenia = 5
+        self.obrazenia = 3
         
         sciezka_do_obrazka = os.path.join("spritey", "wscieklypies.png")
         if not os.path.exists(sciezka_do_obrazka):
@@ -47,15 +47,11 @@ class WscieklyPies:
             print("Pies ugryzł gracza! -5 energii")
 
         teraz = pg.time.get_ticks()
-        if (self.sprawdz_kolizje_z_graczem() and 
-            teraz - self.ostatnie_ugryzienie > self.cooldown and
-            teraz - self.gra.gracz.ostatnie_obrazenia > 500):  # Dodatkowy immunitet gracza
-            
-            self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
-            self.ostatnie_ugryzienie = teraz
-            self.gra.gracz.ostatnie_obrazenia = teraz  # Zapisz czas ostatnich obrażeń
-            print(f"Pies ugryzł gracza! -{self.obrazenia} energii")
-
+        if self.sprawdz_kolizje_z_graczem():
+            if teraz - self.gra.gracz.ostatnie_obrazenia > self.gra.gracz.immunitet:
+                self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
+                self.gra.gracz.ostatnie_obrazenia = teraz
+                print(f"Pies ugryzł gracza! -{self.obrazenia} energii (Immunitet do: {teraz + self.gra.gracz.immunitet}ms)")
                   
 
     
