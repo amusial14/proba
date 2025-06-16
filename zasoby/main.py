@@ -132,7 +132,7 @@ class Gra:
                 pg.time.set_timer(pg.USEREVENT+1, 0)
             elif zdarz.type == pg.USEREVENT+2:  # Koniec immunitetu
                 for pies in self.mapy[self.aktualna_mapa].psy:
-                pies.calkowite_obrazenia = 0
+                    pies.calkowite_obrazenia = 0
                 pg.time.set_timer(pg.USEREVENT+2, 0)
 
 
