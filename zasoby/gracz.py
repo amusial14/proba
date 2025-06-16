@@ -38,9 +38,7 @@ class gracz():
         klawisze = pg.key.get_pressed()
 
         dx, dy = 0, 0
-        if klawisze[pg.K_h]:  # Naciśnij H aby wyświetlić pozycję
-            print(f"Aktualna pozycja: X={self.x} Y={self.y}")
-            print(f"Kolor pod szczurkiem: {self.gra.ekran.get_at((int(self.x), int(self.y)))}")
+        
         if klawisze[pg.K_UP]:  
             dy = -self.szybkosc
         elif klawisze[pg.K_DOWN]:  
@@ -64,6 +62,23 @@ class gracz():
 
         if self.x != nowy_x or self.y != nowy_y:
             self.energia = max(0, self.energia - 0.05)  
+
+    def debug_pozycja(self):
+        """Wyświetla aktualną pozycję i kolor podłoża"""
+        srodek_x = int(self.x + self.obraz.get_width()/2)
+        dół_y = int(self.y + self.obraz.get_height())
+    
+        print("\n--- DEBUG POZYCJI ---")
+        print(f"Lewy górny róg: X={self.x:.1f}, Y={self.y:.1f}")
+        print(f"Środek podstawy: X={srodek_x}, Y={dół_y}")
+    
+        try:
+            kolor = self.gra.ekran.get_at((srodek_x, dół_y))[:3]
+            print(f"Kolor podłoża: {kolor}")
+            print("Czy może iść?:", "TAK" if self.czy_moze_isc(self.x, self.y) else "NIE")
+        except:
+            print("Poza ekranem!")
+        print("---------------------")
 
     
     def aktualizuj(self):
