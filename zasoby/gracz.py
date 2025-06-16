@@ -63,6 +63,10 @@ class gracz():
         if self.x != nowy_x or self.y != nowy_y:
             self.energia = max(0, self.energia - 0.05)  
 
+    def pokaz_wspolrzedne(self):
+        """Wyświetla aktualne współrzędne szczurka w terminalu"""
+        print(f"Pozycja szczurka: X={int(self.x)} Y={int(self.y)}")
+
     def debug_pozycja(self):
         """Wyświetla aktualną pozycję i kolor podłoża"""
         srodek_x = int(self.x + self.obraz.get_width()/2)
