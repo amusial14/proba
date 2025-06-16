@@ -76,20 +76,23 @@ class WscieklyPies:
 
     
    def zadaj_obrazenia(self):
-    # Zatrzymaj poprzednie timery
+    # Stop any existing timers
     pg.time.set_timer(pg.USEREVENT+1, 0)
     pg.time.set_timer(pg.USEREVENT+2, 0)
     
-    # Efekt wizualny (100ms)
+    # Visual effect (100ms)
     if not hasattr(self.gra.gracz, 'normalny_wyglad'):
-        self.gra.gracz.normalny_wyglad = self.gra.gracz.obraz.copy()
-        self.gra.gracz.obraz.fill((255,0,0,100), special_flags=pg.BLEND_MULT)
+        self.gra.gracz.normalny_wyglad = pg.image.load("spritey/parszywek1.png").convert_alpha()
+        self.gra.gracz.normalny_wyglad = pg.transform.scale(self.gra.gracz.normalny_wyglad, (70, 90))
+    
+    self.gra.gracz.obraz = self.gra.gracz.normalny_wyglad.copy()
+    self.gra.gracz.obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
     pg.time.set_timer(pg.USEREVENT+1, 100, loops=1)
     
-    # Immunitet (2s)
+    # Immunity (2000ms)
     pg.time.set_timer(pg.USEREVENT+2, 2000, loops=1)
     
-    # Obliczanie obrażeń
+    # Damage calculation
     self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
     self.calkowite_obrazenia += self.obrazenia
     # 0.1 sekundy
