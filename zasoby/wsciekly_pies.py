@@ -83,7 +83,7 @@ class WscieklyPies:
     # Efekt wizualny (100ms)
     if not hasattr(self.gra.gracz, 'normalny_wyglad'):
         self.gra.gracz.normalny_wyglad = self.gra.gracz.obraz.copy()
-    self.gra.gracz.obraz.fill((255,0,0,100), special_flags=pg.BLEND_MULT)
+        self.gra.gracz.obraz.fill((255,0,0,100), special_flags=pg.BLEND_MULT)
     pg.time.set_timer(pg.USEREVENT+1, 100, loops=1)
     
     # Immunitet (2s)
