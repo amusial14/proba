@@ -8,16 +8,6 @@ from wsciekly_pies import *
 from ekrany_startowe import *
 
 class Gra: 
-    def sprawdz_zdarzenia(self):
-    for zdarz in pg.event.get():
-        if zdarz.type == pg.QUIT:
-            pg.quit()
-            sys.exit()
-        elif zdarz.type == pg.USEREVENT:  # Koniec immunitetu
-            self.gracz.obrazenia_aktywne = True
-            self.gracz.obraz = pg.image.load("spritey/parszywek1.png").convert_alpha()
-            self.gracz.obraz = pg.transform.scale(self.gracz.obraz, (70, 90))
-   
     
     def __init__(self):
         pg.init()
@@ -136,6 +126,11 @@ class Gra:
                             print("Przedmiot podniesiony!")
                 elif zdarz.key == pg.K_m: 
                    self.stan_gry = "mapa" 
+                elif zdarz.type == pg.USEREVENT:  # Dodane - obsługa immunitetu
+                    self.gracz.obrazenia_aktywne = True
+                # Przywróć normalny wygląd gracza
+                    self.gracz.obraz = pg.image.load("spritey/parszywek1.png").convert_alpha()
+                    self.gracz.obraz = pg.transform.scale(self.gracz.obraz, (70, 90))
 
     
     def rysuj(self):
