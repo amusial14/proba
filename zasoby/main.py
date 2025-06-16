@@ -78,9 +78,9 @@ class Gra:
         self.mapy[10].dodaj_polaczenie("prawo", 0)
 
          sciezka_ruch_niepolda = [
-        (200, 400), 
-        (1000, 400), 
-        (200, 400)  
+            (200, 400), 
+            (1000, 400), 
+            (200, 400)  
         ]
 
         pies_niepolda = WscieklyPies(self, 200, 400, sciezka_ruch_niepolda)
