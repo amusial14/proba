@@ -8,6 +8,17 @@ from wsciekly_pies import *
 from ekrany_startowe import *
 
 class Gra: 
+    def sprawdz_zdarzenia(self):
+    for zdarz in pg.event.get():
+        if zdarz.type == pg.QUIT:
+            pg.quit()
+            sys.exit()
+        elif zdarz.type == pg.USEREVENT:  # Koniec immunitetu
+            self.gracz.obrazenia_aktywne = True
+            self.gracz.obraz = pg.image.load("spritey/parszywek1.png").convert_alpha()
+            self.gracz.obraz = pg.transform.scale(self.gracz.obraz, (70, 90))
+   
+    
     def __init__(self):
         pg.init()
         self.ekran = pg.display.set_mode(RES)
@@ -161,16 +172,7 @@ class Gra:
                 self.aktualizuj()
 
     
-    def sprawdz_zdarzenia(self):
-    for zdarz in pg.event.get():
-        if zdarz.type == pg.QUIT:
-            pg.quit()
-            sys.exit()
-        elif zdarz.type == pg.USEREVENT:  # Koniec immunitetu
-            self.gracz.obrazenia_aktywne = True
-            self.gracz.obraz = pg.image.load("spritey/parszywek1.png").convert_alpha()
-            self.gracz.obraz = pg.transform.scale(self.gracz.obraz, (70, 90))
- 
+
 if __name__=="__main__":
     gra=Gra()
     gra.graj()
