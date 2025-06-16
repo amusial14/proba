@@ -146,7 +146,7 @@ class Gra:
         pg.display.flip() 
 
     def aktualizuj(self):
-        print(f"Aktualna pozycja psa: X={self.x}, Y={self.y}")
+        
         self.gracz.aktualizuj()
         self.rysuj()
         for pies in self.mapy[self.aktualna_mapa].psy:
