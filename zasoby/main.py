@@ -127,12 +127,15 @@ class Gra:
                 elif zdarz.key == pg.K_m: 
                    self.stan_gry = "mapa" 
             elif zdarz.type == pg.USEREVENT:  # Dodane - obsługa immunitetu
+                if hasattr(self.gracz, 'normalny_wyglad'):
+                    self.gracz.obraz = self.gracz.normalny_wyglad.copy()
+    
+    # 2. Zresetuj licznik obrażeń (immunitet)
                 for pies in self.mapy[self.aktualna_mapa].psy:
                     pies.calkowite_obrazenia = 0
     
-                self.gracz.obraz = pg.image.load("spritey/parszywek1.png").convert_alpha()
-                self.gracz.obraz = pg.transform.scale(self.gracz.obraz, (70, 90))
-                
+    # 3. Wyczyść timer
+                pg.time.set_timer(pg.USEREVENT, 0)
     def rysuj(self):
         self.ekran.blit(self.tlo, (0, 0)) 
         #for przedmiot in self.przedmioty:
