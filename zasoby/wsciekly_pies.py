@@ -12,9 +12,11 @@ class WscieklyPies:
         self.kierunek = 1 
         self.ostatnie_ugryzienie = 0 
         self.cooldown = 2000
-        self.obrazenia = 10
+        self.obrazenia = 15
         self.aktywny_atak = False  # Czy pies aktualnie atakuje
         self.czas_ataku = 0
+        self.calkowite_obrazenia = 0  # Śledzenie zadanych obrażeń
+        self.max_obrazenia = 15
         
         sciezka_do_obrazka = os.path.join("spritey", "wscieklypies.png")
         if not os.path.exists(sciezka_do_obrazka):
@@ -42,24 +44,22 @@ class WscieklyPies:
         
         
         self.rect.topleft = (self.x, self.y)
-        
-        
-        if self.sprawdz_kolizje_z_graczem():
-            self.gra.gracz.energia = max(0, self.gra.gracz.energia - 5)
-            print("Pies ugryzł gracza! -5 energii")
 
-        teraz = pg.time.get_ticks()
-        if self.sprawdz_kolizje_z_graczem() and self.gra.gracz.obrazenia_aktywne:
-            if not self.aktywny_atak:
-                # Rozpocznij atak
-                self.aktywny_atak = True
-                self.czas_ataku = teraz
-                self.zadaj_obrazenia()
-            elif teraz - self.czas_ataku > 1000:  # Nowy atak co sekundę
-                self.czas_ataku = teraz
-                self.zadaj_obrazenia()
-        else:
-            self.aktywny_atak = False
+    teraz = pg.time.get_ticks()
+    if self.sprawdz_kolizje_z_graczem():
+        if not hasattr(self.gra.gracz, 'ostatnie_obrazenia'):
+            self.gra.gracz.ostatnie_obrazenia = 0
+            
+        if teraz - self.gra.gracz.ostatnie_obrazenia > 1000:  # 1 sekunda przerwy
+            self.gra.gracz.energia = max(0, self.gra.gracz.energia - 5)  # Stała wartość obrażeń
+            self.gra.gracz.ostatnie_obrazenia = teraz
+            print(f"Ugryzienie! -5 energii (Pozostało: {self.gra.gracz.energia})")
+    else:
+        # Reset przy przerwaniu kontaktu
+        if hasattr(self.gra.gracz, 'w_kontakcie_z_psem'):
+            self.gra.gracz.w_kontakcie_z_psem = False
+        
+        
 
     def zadaj_obrazenia(self):
         self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
