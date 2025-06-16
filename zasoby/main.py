@@ -84,7 +84,7 @@ class Gra:
             (375, 420)   # Powrót do punktu startowego (zapętlenie)
         ]
 
-        pies_niepolda = WscieklyPies(self, 200, 400, sciezka_ruch_niepolda)
+        pies_niepolda = WscieklyPies(self, 375, 420, sciezka_ruch_niepolda)
         self.mapy[10].dodaj_psa(pies_niepolda)
         #tu można dodać więcej połączeń, przedmioty i psów
 
