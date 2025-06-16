@@ -77,7 +77,7 @@ class WscieklyPies:
     def zadaj_obrazenia(self):
         self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
         self.calkowite_obrazenia += self.obrazenia
-        print(f"Pies ugryzł! -{self.obrazenia} energii (Łącznie: {self.calkowite_obrazenia}/{self.max_obrazen_na_spotkanie})")
+        print(f"Pies ugryzł! -{self.obrazenia} energii")
         
         # Wizualna informacja o ugryzieniu
         original_image = pg.image.load("spritey/parszywek1.png").convert_alpha()
