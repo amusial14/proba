@@ -134,7 +134,7 @@ class Gra:
                 self.gracz.obraz = pg.image.load("spritey/parszywek1.png").convert_alpha()
                 self.gracz.obraz = pg.transform.scale(self.gracz.obraz, (70, 90))
             elif zdarz.type == pg.KEYDOWN:
-                if zdarz.key == pg.K_F1:  # Naciśnij F1 aby wyświetlić pozycję
+                if zdarz.key == pg.K_M:  # Naciśnij F1 aby wyświetlić pozycję
                     self.gracz.pokaz_pozycje()
     
     def rysuj(self):
