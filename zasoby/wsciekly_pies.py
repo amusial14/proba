@@ -47,31 +47,16 @@ class WscieklyPies:
 
     teraz = pg.time.get_ticks()
     if self.sprawdz_kolizje_z_graczem():
-        if not hasattr(self.gra.gracz, 'ostatnie_obrazenia'):
-            self.gra.gracz.ostatnie_obrazenia = 0
-            
-        if teraz - self.gra.gracz.ostatnie_obrazenia > 1000:  # 1 sekunda przerwy
-            self.gra.gracz.energia = max(0, self.gra.gracz.energia - 5)  # Stała wartość obrażeń
-            self.gra.gracz.ostatnie_obrazenia = teraz
-            print(f"Ugryzienie! -5 energii (Pozostało: {self.gra.gracz.energia})")
-    else:
-        # Reset przy przerwaniu kontaktu
-        if hasattr(self.gra.gracz, 'w_kontakcie_z_psem'):
-            self.gra.gracz.w_kontakcie_z_psem = False
+            if not hasattr(self.gra.gracz, 'ostatnie_obrazenia'):
+                self.gra.gracz.ostatnie_obrazenia = 0
+                
+            if teraz - self.gra.gracz.ostatnie_obrazenia > 1000:
+                self.gra.gracz.energia = max(0, self.gra.gracz.energia - 5)
+                self.gra.gracz.ostatnie_obrazenia = teraz
+                print(f"Ugryzienie! -5 energii (Pozostało: {self.gra.gracz.energia})")
+    
         
         
-
-    def zadaj_obrazenia(self):
-        self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
-        self.gra.gracz.obrazenia_aktywne = False
-        self.gra.gracz.czas_immunitetu = pg.time.get_ticks()
-        print(f"Pies ugryzł! -{self.obrazenia} energii")
-        
-        # Wizualna informacja o ugryzieniu
-        self.gra.gracz.obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
-        
-        # Timer do przywrócenia normalnego stanu
-        pg.time.set_timer(pg.USEREVENT, self.gra.gracz.dlugosc_immunitetu)
 
     
     def sprawdz_kolizje_z_graczem(self):
