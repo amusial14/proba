@@ -87,9 +87,9 @@ class Gra:
         pies_niepolda = WscieklyPies(self, 375, 420, sciezka_ruch_niepolda)
         self.mapy[10].dodaj_psa(pies_niepolda)
         sciezka_grunwald = [
-            (275, 260),  # Start
-            (900, 260),  # Koniec
-            (275, 260)   # Powrót (zapętlenie)
+            (290, 280),  # Start
+            (870, 280),  # Koniec
+            (290, 280)   # Powrót (zapętlenie)
         ]
         pies_grunwald = WscieklyPies(self, 280, 250, sciezka_grunwald, predkosc=2)
         self.mapy[6].dodaj_psa(pies_grunwald)
@@ -97,9 +97,9 @@ class Gra:
     # Pies na Dworcu (mapa 1)
         sciezka_dworzec = [
             (445, 350),  # Punkt 1
-            (945, 350),  # Punkt 2
-            (945, 660),
-            (945, 350),
+            (920, 350),  # Punkt 2
+            (920, 660),
+            (920, 350),
             (445, 350)   # Powrót do punktu 1 (zapętlenie)
         ]
         pies_dworzec = WscieklyPies(self, 445, 370, sciezka_dworzec, predkosc=1.5)  # Wolniejszy
