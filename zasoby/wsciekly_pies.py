@@ -3,7 +3,7 @@ from ustawienia import *
 import os
 
 class WscieklyPies:
-    def __init__(self, gra, x, y, sciezka_ruch, predkosc=3):
+    def __init__(self, gra, x, y, sciezka_ruch, predkosc=2):
         self.gra = gra
         self.x, self.y = x, y
         self.sciezka_ruch = sciezka_ruch
