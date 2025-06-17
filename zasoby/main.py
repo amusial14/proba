@@ -86,6 +86,23 @@ class Gra:
 
         pies_niepolda = WscieklyPies(self, 375, 420, sciezka_ruch_niepolda)
         self.mapy[10].dodaj_psa(pies_niepolda)
+        sciezka_grunwald = [
+            (280, 250),  # Start
+            (920, 250),  # Koniec
+            (280, 250)   # Powrót (zapętlenie)
+        ]
+        pies_grunwald = WscieklyPies(self, 280, 250, sciezka_grunwald, predkosc=2)
+        self.mapy[6].dodaj_psa(pies_grunwald)
+
+    # Pies na Dworcu (mapa 1)
+        sciezka_dworzec = [
+            (445, 370),  # Punkt 1
+            (945, 370),  # Punkt 2
+            (945, 660),  # Punkt 3
+            (445, 370)   # Powrót do punktu 1 (zapętlenie)
+        ]
+        pies_dworzec = WscieklyPies(self, 445, 370, sciezka_dworzec, predkosc=1.5)  # Wolniejszy
+        self.mapy[1].dodaj_psa(pies_dworzec)
         #tu można dodać więcej połączeń, przedmioty i psów
 
     def rysuj_interfejs(self):
