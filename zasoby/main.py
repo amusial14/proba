@@ -87,9 +87,9 @@ class Gra:
         pies_niepolda = WscieklyPies(self, 375, 420, sciezka_ruch_niepolda)
         self.mapy[10].dodaj_psa(pies_niepolda)
         sciezka_grunwald = [
-            (290, 280),  # Start
-            (870, 280),  # Koniec
-            (290, 280)   # Powrót (zapętlenie)
+            (290, 250),  # Start
+            (855, 250),  # Koniec
+            (290, 250)   # Powrót (zapętlenie)
         ]
         pies_grunwald = WscieklyPies(self, 280, 250, sciezka_grunwald, predkosc=2)
         self.mapy[6].dodaj_psa(pies_grunwald)
