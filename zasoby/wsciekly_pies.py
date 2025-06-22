@@ -19,7 +19,7 @@ class WscieklyPies:
         self.calkowite_obrazenia = 0
         self.max_obrazen_na_spotkanie = 15 
         self.czas_czerwonego = 0
-        self.czerwony_czas_trwania = 500
+        self.czerwony_aktywny = False
         
         sciezka_do_obrazka = os.path.join("spritey", "wscieklypies.png")
         if not os.path.exists(sciezka_do_obrazka):
