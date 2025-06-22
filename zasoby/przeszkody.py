@@ -22,8 +22,9 @@ class Przeszkoda:
 
     def dezaktywuj(self):
         self.aktywna = False
-        if self.powiazana_przeszkoda: 
-            self.powiazana_przeszkoda.dezaktywuj()
+        if self.kontrolowana_przeszkoda:  # Add this method
+            self.kontrolowana_przeszkoda.dezaktywuj()
+
 
     def koliduje(self, gracz):
         if not self.aktywna:
