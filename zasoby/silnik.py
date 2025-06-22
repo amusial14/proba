@@ -66,9 +66,9 @@ class Silnik:
         self.mapy[0].dodaj_polaczenie("lewo", 10)
         self.mapy[10].dodaj_polaczenie("prawo", 0)
         sciezka_ruch_niepolda = [
-            (375, 420),  
-            (850, 420), 
-            (375, 420)   
+            (505, 420),  
+            (950, 420), 
+            (505, 420)   
         ]
 
         pies_niepolda = WscieklyPies(self, 375, 420, sciezka_ruch_niepolda)
