@@ -31,13 +31,14 @@ class Przeszkoda:
     def koliduje(self, gracz):
         if not self.aktywna:
             return False
-         gracz_rect = pg.Rect(gracz.x, gracz.y, gracz.obraz.get_width(), gracz.obraz.get_height())
 
-        if self.rect.colliderect(gracz.rect):
+        gracz_rect = pg.Rect(gracz.x, gracz.y, gracz.obraz.get_width(), gracz.obraz.get_height())
+        
+        if self.rect.colliderect(gracz_rect):
             if self.wymagany_przedmiot and gracz.odblokowywacz == self.wymagany_przedmiot:
+                print(f"Używam {self.wymagany_przedmiot} na {self.nazwa}")
                 self.dezaktywuj()
-                # odblokowujemy
-                gracz.odblokowywacz = None  # zużywamy odblokowywacz
-                return False  # już nie blokuje
-            return True  # kolizja, ale nie ma odblokowywacza
+                gracz.odblokowywacz = None
+                return False
+            return True
         return False
