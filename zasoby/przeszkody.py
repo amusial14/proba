@@ -2,13 +2,14 @@ import pygame as pg
 import os
 
 class Przeszkoda:
-    def __init__(self, gra, x, y, obrazek, wymagany_przedmiot=None):
+    def __init__(self, gra, x, y, obrazek, wymagany_przedmiot=None, powiazana_przeszkoda=None):
         self.gra = gra
         self.x = x
         self.y = y
         self.nazwa = obrazek
         self.wymagany_przedmiot = wymagany_przedmiot
         self.aktywna = True
+        self.powiazana_przeszkoda = powiazana_przeszkoda  
 
         sciezka_obrazka = os.path.join("spritey", obrazek)
         self.obraz = pg.image.load(sciezka_obrazka).convert_alpha()
@@ -17,7 +18,12 @@ class Przeszkoda:
 
     def rysuj(self, ekran):
         if self.aktywna:
-            ekran.blit(self.obraz, (self.x, self.y))  
+            ekran.blit(self.obraz, (self.x, self.y)) 
+
+    def dezaktywuj(self):
+        self.aktywna = False
+        if self.powiazana_przeszkoda: 
+            self.powiazana_przeszkoda.dezaktywuj()
 
     def koliduje(self, gracz):
         if not self.aktywna:
