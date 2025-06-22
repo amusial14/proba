@@ -2,14 +2,14 @@ import pygame as pg
 import os
 
 class Przeszkoda:
-    def __init__(self, gra, x, y, obrazek, wymagany_przedmiot=None, powiazana_przeszkoda=None):
+    def __init__(self, gra, x, y, obrazek, wymagany_przedmiot=None, kontrolowana_przeszkoda=None):
         self.gra = gra
         self.x = x
         self.y = y
         self.nazwa = obrazek
         self.wymagany_przedmiot = wymagany_przedmiot
         self.aktywna = True
-        self.powiazana_przeszkoda = powiazana_przeszkoda  
+        self.kontrolowana_przeszkoda = kontrolowana_przeszkoda  
 
         sciezka_obrazka = os.path.join("spritey", obrazek)
         self.obraz = pg.image.load(sciezka_obrazka).convert_alpha()
