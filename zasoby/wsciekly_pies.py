@@ -28,9 +28,13 @@ class WscieklyPies:
         self.obraz = pg.image.load(sciezka_do_obrazka).convert_alpha()
         self.obraz = pg.transform.scale(self.obraz, (120, 120)) 
         self.rect = self.obraz.get_rect(topleft=(self.x, self.y))
+        
         self.oryginalny_obraz_gracza = pg.image.load("spritey/parszywek1.png").convert_alpha()
         self.oryginalny_obraz_gracza = pg.transform.scale(self.oryginalny_obraz_gracza, (70, 90))
-        
+        self.czerwony_obraz = self.oryginalny_obraz_gracza.copy()
+        self.czerwony_obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
+   
+
     def aktualizuj(self):
         cel_x, cel_y = self.sciezka_ruch[self.aktualny_cel]
         dx, dy = cel_x - self.x, cel_y - self.y
@@ -51,10 +55,11 @@ class WscieklyPies:
         self.rect.topleft = (self.x, self.y)
 
         teraz = pg.time.get_ticks()
-        if self.czas_czerwonego > 0:
-            if teraz - self.czas_czerwonego > self.czerwony_czas_trwania:
-                self.czas_czerwonego = 0
-                self.gra.gracz.obraz = self.oryginalny_obraz_gracza
+        if self.czerwony_aktywny and teraz - self.czas_czerwonego > 500:  # 0.5 sekundy
+            self.czerwony_aktywny = False
+            self.gra.gracz.obraz = self.oryginalny_obraz_gracza
+
+
                 
         if self.sprawdz_kolizje_z_graczem():
             if not self.aktywny_atak and self.calkowite_obrazenia < self.max_obrazen_na_spotkanie:
