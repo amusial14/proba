@@ -18,6 +18,8 @@ class WscieklyPies:
         self.cooldown_ataku = 1000  
         self.calkowite_obrazenia = 0
         self.max_obrazen_na_spotkanie = 15 
+        self.czas_czerwonego = 0
+        self.czerwony_czas_trwania = 500
         
         sciezka_do_obrazka = os.path.join("spritey", "wscieklypies.png")
         if not os.path.exists(sciezka_do_obrazka):
@@ -26,6 +28,8 @@ class WscieklyPies:
         self.obraz = pg.image.load(sciezka_do_obrazka).convert_alpha()
         self.obraz = pg.transform.scale(self.obraz, (120, 120)) 
         self.rect = self.obraz.get_rect(topleft=(self.x, self.y))
+        self.oryginalny_obraz_gracza = pg.image.load("spritey/parszywek1.png").convert_alpha()
+        self.oryginalny_obraz_gracza = pg.transform.scale(self.oryginalny_obraz_gracza, (70, 90))
         
     def aktualizuj(self):
         cel_x, cel_y = self.sciezka_ruch[self.aktualny_cel]
@@ -47,6 +51,11 @@ class WscieklyPies:
         self.rect.topleft = (self.x, self.y)
 
         teraz = pg.time.get_ticks()
+        if self.czas_czerwonego > 0:
+            if teraz - self.czas_czerwonego > self.czerwony_czas_trwania:
+                self.czas_czerwonego = 0
+                self.gra.gracz.obraz = self.oryginalny_obraz_gracza
+                
         if self.sprawdz_kolizje_z_graczem():
             if not self.aktywny_atak and self.calkowite_obrazenia < self.max_obrazen_na_spotkanie:
                 self.rozpocznij_atak(teraz)
@@ -73,6 +82,8 @@ class WscieklyPies:
             pg.time.set_timer(pg.USEREVENT, 2000, loops=1)
 
     def zadaj_obrazenia(self):
+        if not self.sprawdz_kolizje_z_graczem():
+            return
         self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
         self.calkowite_obrazenia += self.obrazenia
         print(f"Pies ugryzł! -{self.obrazenia} energii")
