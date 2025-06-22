@@ -112,7 +112,7 @@ class Silnik:
         
     
         chmurka_bilet_img = pg.image.load("spritey/chmurka_bilet.png").convert_alpha()
-        chmurka_bilet_img = pg.transform.scale(chmurka_bilet_img, (300, 300))
+        chmurka_bilet_img = pg.transform.scale(chmurka_bilet_img, (250, 250))
 
         chmurka_bilet = Przeszkoda(self, 380, 350, "chmurka_bilet.png")
         chmurka_bilet.obraz = chmurka_bilet_img  # Nadpisujemy obrazek
@@ -133,8 +133,8 @@ class Silnik:
         self.mapy[10].dodaj_przedmiot(bilet)
         
         chmurka_dokument_img = pg.image.load("spritey/chmurka_dokument.png").convert_alpha()
-        chmurka_dokument_img = pg.transform.scale(chmurka_dokument_img, (270, 270))
-        chmurka_dokument = Przeszkoda(self, 320, 235, "chmurka_dokument.png")
+        chmurka_dokument_img = pg.transform.scale(chmurka_dokument_img, (250, 250))
+        chmurka_dokument = Przeszkoda(self, 310, 215, "chmurka_dokument.png")
         chmurka_dokument.obraz = chmurka_dokument_img
 
         nauczyciel = Przeszkoda(
@@ -145,8 +145,8 @@ class Silnik:
 
     # 3. Paniszczurek i chmurka_roza (takie samo skalowanie)
         chmurka_roza_img = pg.image.load("spritey/chmurka_roza.png").convert_alpha()
-        chmurka_roza_img = pg.transform.scale(chmurka_roza_img, (270, 270))
-        chmurka_roza = Przeszkoda(self, 650, 420, "chmurka_roza.png")
+        chmurka_roza_img = pg.transform.scale(chmurka_roza_img, (250, 250))
+        chmurka_roza = Przeszkoda(self, 665, 420, "chmurka_roza.png")
         chmurka_roza.obraz = chmurka_roza_img
 
         paniszczurek = Przeszkoda(
