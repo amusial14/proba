@@ -31,10 +31,12 @@ class Przeszkoda:
     def koliduje(self, gracz):
         if not self.aktywna:
             return False
+         gracz_rect = pg.Rect(gracz.x, gracz.y, gracz.obraz.get_width(), gracz.obraz.get_height())
 
         if self.rect.colliderect(gracz.rect):
             if self.wymagany_przedmiot and gracz.odblokowywacz == self.wymagany_przedmiot:
-                self.aktywna = False  # odblokowujemy
+                self.dezaktywuj()
+                # odblokowujemy
                 gracz.odblokowywacz = None  # zużywamy odblokowywacz
                 return False  # już nie blokuje
             return True  # kolizja, ale nie ma odblokowywacza
