@@ -110,18 +110,19 @@ class Silnik:
         tort = Przedmiot(self, 850, 120, "tort.png")
         self.mapy[6].dodaj_przedmiot(tort)
 
-        autobus = Przeszkoda(self, 670, 585, "autobus.png", wymagany_przedmiot = "bilet")
+        autobus = Przeszkoda(self, 670, 585, "autobus.png", wymagany_przedmiot = "bilet", kontrolowana_przeszkoda = chmurka_bilet)
         self.mapy[5].dodaj_przeszkode(autobus)
-
-        bilet = Przedmiot(self, 370, 445, "bilet.png")
-        self.mapy[10].dodaj_przedmiot(bilet)
 
         chmurka_bilet = Przeszkoda(self, 380, 350, "chmurka_bilet.png", wymagany_przedmiot = "bilet")
         self.mapy[5].dodaj_przeszkode(chmurka_bilet)
         chmurka_bilet.obraz = pg.transform.scale(
             pg.image.load("spritey/chmurka_bilet.png").convert_alpha(), 
             (300, 300)
-        )# Nowy rozmia
+        )
+
+        bilet = Przedmiot(self, 370, 445, "bilet.png")
+        self.mapy[10].dodaj_przedmiot(bilet)
+      
         
         paniszczurek = Przeszkoda(self, 940, 600, "paniszczurek.png", wymagany_przedmiot = "roza")
         self.mapy[1].dodaj_przeszkode(paniszczurek)
