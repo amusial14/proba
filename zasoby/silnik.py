@@ -115,6 +115,10 @@ class Silnik:
 
         bilet = Przedmiot(self, 370, 445, "bilet.png")
         self.mapy[10].dodaj_przedmiot(bilet)
+        
+        chmurka_bilet = Przeszkoda(self, 670 - 100, 585 - 50, "chmurka_bilet.png", wymagany_przedmiot = "bilet")
+        self.mapy[5].dodaj_przeszkode(chmurka_bilet)
+
 
         paniszczurek = Przeszkoda(self, 940, 600, "paniszczurek.png", wymagany_przedmiot = "roza")
         self.mapy[1].dodaj_przeszkode(paniszczurek)
