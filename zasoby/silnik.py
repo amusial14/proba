@@ -116,7 +116,7 @@ class Silnik:
         bilet = Przedmiot(self, 370, 445, "bilet.png")
         self.mapy[10].dodaj_przedmiot(bilet)
 
-        chmurka_bilet = Przeszkoda(self, 380, 500, "chmurka_bilet.png", wymagany_przedmiot = "bilet")
+        chmurka_bilet = Przeszkoda(self, 380, 350, "chmurka_bilet.png", wymagany_przedmiot = "bilet")
         self.mapy[5].dodaj_przeszkode(chmurka_bilet)
         chmurka_bilet.obraz = pg.transform.scale(
             pg.image.load("spritey/chmurka_bilet.png").convert_alpha(), 
