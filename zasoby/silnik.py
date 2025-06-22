@@ -113,20 +113,19 @@ class Silnik:
     
         chmurka_img = pg.image.load("spritey/chmurka_bilet.png").convert_alpha()
         chmurka_img = pg.transform.scale(chmurka_img, (300, 300))
-    
-        chmurka_bilet = Przeszkoda(self, 380, 350, "chmurka_bilet.png")
-        chmurka_bilet.obraz = chmurka_img  # Apply the scaled image
 
-    # Then create the bus that controls the cloud
+        chmurka_bilet = Przeszkoda(self, 380, 350, "chmurka_bilet.png")
+        chmurka_bilet.obraz = chmurka_img  # Nadpisujemy obrazek
+
+# Teraz stworz autobus POWIĄZANY z chmurką
         autobus = Przeszkoda(
-            self, 
-            670, 585, 
-            "autobus.png", 
+            self,
+            670, 585,
+            "autobus.png",
             wymagany_przedmiot="bilet",
-            kontrolowana_przeszkoda=chmurka_bilet  # Now this will work
+            kontrolowana_przeszkoda=chmurka_bilet  # Kluczowe powiązanie
         )
-    
-    # Add to map 5 (Nadodrze)
+
         self.mapy[5].dodaj_przeszkode(autobus)
         self.mapy[5].dodaj_przeszkode(chmurka_bilet)
       
