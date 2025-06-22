@@ -118,6 +118,10 @@ class Silnik:
 
         chmurka_bilet = Przeszkoda(self, 670 - 100, 585 - 50, "chmurka_bilet.png", wymagany_przedmiot = "bilet")
         self.mapy[5].dodaj_przeszkode(chmurka_bilet)
+        chmurka_bilet.obraz = pg.transform.scale(
+            pg.image.load("spritey/chmurka_bilet.png").convert_alpha(), 
+            (300, 300)
+        )# Nowy rozmia
         
         paniszczurek = Przeszkoda(self, 940, 600, "paniszczurek.png", wymagany_przedmiot = "roza")
         self.mapy[1].dodaj_przeszkode(paniszczurek)
