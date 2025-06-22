@@ -114,7 +114,7 @@ class Silnik:
         chmurka_bilet_img = pg.image.load("spritey/chmurka_bilet.png").convert_alpha()
         chmurka_bilet_img = pg.transform.scale(chmurka_bilet_img, (250, 250))
 
-        chmurka_bilet = Przeszkoda(self, 380, 350, "chmurka_bilet.png")
+        chmurka_bilet = Przeszkoda(self, 400, 370, "chmurka_bilet.png")
         chmurka_bilet.obraz = chmurka_bilet_img  # Nadpisujemy obrazek
 
 # Teraz stworz autobus POWIĄZANY z chmurką
