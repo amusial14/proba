@@ -132,14 +132,40 @@ class Silnik:
         bilet = Przedmiot(self, 370, 445, "bilet.png")
         self.mapy[10].dodaj_przedmiot(bilet)
         
-        paniszczurek = Przeszkoda(self, 940, 600, "paniszczurek.png", wymagany_przedmiot = "roza")
-        self.mapy[1].dodaj_przeszkode(paniszczurek)
+        chmurka_dokument_img = pg.image.load("spritey/chmurka_dokument.png").convert_alpha()
+        chmurka_dokument_img = pg.transform.scale(chmurka_dokument_img, (CHMURKA_WIDTH, CHMURKA_HEIGHT))
+        chmurka_dokument = Przeszkoda(self, 470, 265, "chmurka_dokument.png")
+        chmurka_dokument.obraz = chmurka_dokument_img
 
+        nauczyciel = Przeszkoda(
+            self, 570, 365, "nauczyciel.png",
+            wymagany_przedmiot="dokument",
+            kontrolowana_przeszkoda=chmurka_dokument
+        )
+
+    # 3. Paniszczurek i chmurka_roza (takie samo skalowanie)
+        chmurka_roza_img = pg.image.load("spritey/chmurka_roza.png").convert_alpha()
+        chmurka_roza_img = pg.transform.scale(chmurka_roza_img, (CHMURKA_WIDTH, CHMURKA_HEIGHT))
+        chmurka_roza = Przeszkoda(self, 840, 500, "chmurka_roza.png")
+        chmurka_roza.obraz = chmurka_roza_img
+
+        paniszczurek = Przeszkoda(
+            self, 940, 600, "paniszczurek.png",
+            wymagany_przedmiot="roza",
+            kontrolowana_przeszkoda=chmurka_roza
+        )
+
+    # Dodawanie do map
+        self.mapy[5].dodaj_przeszkode(autobus)       # Nadodrze
+        self.mapy[5].dodaj_przeszkode(chmurka_bilet)
+    
+        self.mapy[6].dodaj_przeszkode(nauczyciel)    # Plac Grunwaldzki
+        self.mapy[6].dodaj_przeszkode(chmurka_dokument)
+    
+        self.mapy[1].dodaj_przeszkode(paniszczurek)  # Dworzec
+        self.mapy[1].dodaj_przeszkode(chmurka_roza)
         roza = Przedmiot(self, 405, 180, "roza.png")
         self.mapy[0].dodaj_przedmiot(roza)
-
-        nauczyciel = Przeszkoda(self, 570, 365, "nauczyciel.png", wymagany_przedmiot = "dokument")
-        self.mapy[6].dodaj_przeszkode(nauczyciel)
 
         dokument = Przedmiot(self, 350, 185, "dokument.png")
         self.mapy[3].dodaj_przedmiot(dokument)
