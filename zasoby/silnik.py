@@ -116,8 +116,9 @@ class Silnik:
         bilet = Przedmiot(self, 370, 445, "bilet.png")
         self.mapy[10].dodaj_przedmiot(bilet)
         
-        chmurka_bilet = Przeszkoda(self, 670 - 120, 585 - 70, "chmurka_bilet.png", wymagany_przedmiot="bilet")
-        chmurka_bilet.obraz = pg.transform.scale(chmurka_bilet.obraz, (150, 150))  # Ręczne przeskalowanie
+        chmurka_bilet = Przeszkoda(self, 670 - 200, 585 - 150, "chmurka_bilet_duza.png", wymagany_przedmiot="bilet")
+# Wyłącz automatyczne skalowanie w klasie Przeszkoda dla tego przypadku:
+        chmurka_bilet.obraz = pg.image.load(os.path.join("spritey", "chmurka_bilet_duza.png")).convert_alpha()
         self.mapy[5].dodaj_przeszkode(chmurka_bilet)
 
         paniszczurek = Przeszkoda(self, 940, 600, "paniszczurek.png", wymagany_przedmiot = "roza")
