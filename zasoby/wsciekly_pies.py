@@ -15,7 +15,7 @@ class WscieklyPies:
         self.obrazenia = 5 
         self.aktywny_atak = False
         self.czas_ostatniego_ataku = 0
-        self.cooldown_ataku = 1000  
+        self.cooldown_ataku = 1000  # 1 sekunda
         self.calkowite_obrazenia = 0
         self.max_obrazen_na_spotkanie = 15 
         self.czas_czerwonego = 0
@@ -29,13 +29,13 @@ class WscieklyPies:
         self.obraz = pg.transform.scale(self.obraz, (120, 120)) 
         self.rect = self.obraz.get_rect(topleft=(self.x, self.y))
         
-        self.oryginalny_obraz_gracza = pg.image.load("spritey/parszywek1.png").convert_alpha()
-        self.oryginalny_obraz_gracza = pg.transform.scale(self.oryginalny_obraz_gracza, (70, 90))
+        # Ładowanie obrazów gracza
+        self.oryginalny_obraz_gracza = self.gra.gracz.obraz.copy()
         self.czerwony_obraz = self.oryginalny_obraz_gracza.copy()
         self.czerwony_obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
-   
-
+        
     def aktualizuj(self):
+        # Aktualizacja pozycji psa
         cel_x, cel_y = self.sciezka_ruch[self.aktualny_cel]
         dx, dy = cel_x - self.x, cel_y - self.y
         odleglosc = (dx**2 + dy**2)**0.5
@@ -51,17 +51,18 @@ class WscieklyPies:
             self.x += (dx / odleglosc) * self.predkosc
             self.y += (dy / odleglosc) * self.predkosc
         
-        
         self.rect.topleft = (self.x, self.y)
 
+        # Aktualizacja efektu czerwonego
         teraz = pg.time.get_ticks()
-        if self.czerwony_aktywny and teraz - self.czas_czerwonego > 500:  # 0.5 sekundy
-            self.czerwony_aktywny = False
-            self.gra.gracz.obraz = self.oryginalny_obraz_gracza
+        if self.czerwony_aktywny:
+            if not self.sprawdz_kolizje_z_graczem() or teraz - self.czas_czerwonego > 500:
+                self.czerwony_aktywny = False
+                self.gra.gracz.obraz = self.oryginalny_obraz_gracza
 
-
-                
-        if self.sprawdz_kolizje_z_graczem():
+        # Logika ataku
+        kolizja = self.sprawdz_kolizje_z_graczem()
+        if kolizja:
             if not self.aktywny_atak and self.calkowite_obrazenia < self.max_obrazen_na_spotkanie:
                 self.rozpocznij_atak(teraz)
             elif (self.aktywny_atak and 
@@ -70,7 +71,6 @@ class WscieklyPies:
                 self.kontynuuj_atak(teraz)
         else:
             self.zakoncz_atak()
-
 
     def rozpocznij_atak(self, czas):
         self.aktywny_atak = True
@@ -84,20 +84,21 @@ class WscieklyPies:
     def zakoncz_atak(self):
         if self.aktywny_atak:
             self.aktywny_atak = False
-            pg.time.set_timer(pg.USEREVENT, 2000, loops=1)
+            if not self.czerwony_aktywny:
+                self.gra.gracz.obraz = self.oryginalny_obraz_gracza
 
     def zadaj_obrazenia(self):
-        if not self.sprawdz_kolizje_z_graczem():
+        if not self.sprawdz_kolizje_z_graczem() or self.calkowite_obrazenia >= self.max_obrazen_na_spotkanie:
             return
+            
         self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
         self.calkowite_obrazenia += self.obrazenia
         print(f"Pies ugryzł! -{self.obrazenia} energii")
         
-        original_image = pg.image.load("spritey/parszywek1.png").convert_alpha()
-        self.gra.gracz.obraz = pg.transform.scale(original_image, (70, 90))
-        self.gra.gracz.obraz.fill((255, 0, 0, 100), special_flags=pg.BLEND_MULT)
-        pg.time.set_timer(pg.USEREVENT, 500, loops=1)
-
+        # Aktywuj czerwony efekt
+        self.gra.gracz.obraz = self.czerwony_obraz
+        self.czerwony_aktywny = True
+        self.czas_czerwonego = pg.time.get_ticks()
     
     def sprawdz_kolizje_z_graczem(self):
         gracz_rect = pg.Rect(self.gra.gracz.x, self.gra.gracz.y, 
@@ -112,4 +113,5 @@ class WscieklyPies:
         self.x = self.startowe_x
         self.y = self.startowy_y
         self.calkowite_obrazenia = 0
-
+        self.czerwony_aktywny = False
+        self.gra.gracz.obraz = self.oryginalny_obraz_gracza
