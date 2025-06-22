@@ -21,9 +21,11 @@ class Przeszkoda:
             ekran.blit(self.obraz, (self.x, self.y)) 
 
     def dezaktywuj(self):
+        print(f"Dezaktywuję: {self.nazwa}")
         self.aktywna = False
-        if self.kontrolowana_przeszkoda:  # Add this method
-            self.kontrolowana_przeszkoda.dezaktywuj()
+        if self.kontrolowana_przeszkoda:
+            print(f"Również dezaktywuję: {self.kontrolowana_przeszkoda.nazwa}")
+            self.kontrolowana_przeszkoda.aktywna = False
 
 
     def koliduje(self, gracz):
