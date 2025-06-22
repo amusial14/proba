@@ -67,7 +67,7 @@ class Silnik:
         self.mapy[10].dodaj_polaczenie("prawo", 0)
         sciezka_ruch_niepolda = [
             (375, 420),  
-            (550, 420), 
+            (850, 420), 
             (375, 420)   
         ]
 
@@ -85,7 +85,7 @@ class Silnik:
         sciezka_dworzec = [
             (445, 350),  
             (920, 350),  
-            (920, 540),
+            (920, 545),
             (920, 350),
             (445, 350)   
         ]
