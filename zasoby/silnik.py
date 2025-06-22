@@ -110,18 +110,25 @@ class Silnik:
         tort = Przedmiot(self, 850, 120, "tort.png")
         self.mapy[6].dodaj_przedmiot(tort)
         
-        chmurka_bilet = Przeszkoda(self, 380, 350, "chmurka_bilet.png", wymagany_przedmiot = "bilet")
-        chmurka_bilet.obraz = pg.transform.scale(
-            pg.image.load("spritey/chmurka_bilet.png").convert_alpha(), 
-            (300, 300)
+    
+        chmurka_img = pg.image.load("spritey/chmurka_bilet.png").convert_alpha()
+        chmurka_img = pg.transform.scale(chmurka_img, (300, 300))
+    
+        chmurka_bilet = Przeszkoda(self, 380, 350, "chmurka_bilet.png")
+        chmurka_bilet.obraz = chmurka_img  # Apply the scaled image
+
+    # Then create the bus that controls the cloud
+        autobus = Przeszkoda(
+            self, 
+            670, 585, 
+            "autobus.png", 
+            wymagany_przedmiot="bilet",
+            kontrolowana_przeszkoda=chmurka_bilet  # Now this will work
         )
-        autobus = Przeszkoda(self, 670, 585, "autobus.png", wymagany_przedmiot = "bilet", kontrolowana_przeszkoda = chmurka_bilet)
-        
+    
+    # Add to map 5 (Nadodrze)
         self.mapy[5].dodaj_przeszkode(autobus)
         self.mapy[5].dodaj_przeszkode(chmurka_bilet)
-        
-        bilet = Przedmiot(self, 370, 445, "bilet.png")
-        self.mapy[10].dodaj_przedmiot(bilet)
       
         
         paniszczurek = Przeszkoda(self, 940, 600, "paniszczurek.png", wymagany_przedmiot = "roza")
