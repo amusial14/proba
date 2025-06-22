@@ -16,8 +16,6 @@ class WscieklyPies:
         self.aktywny_atak = False
         self.czas_ostatniego_ataku = 0
         self.cooldown_ataku = 1000  # 1 sekunda
-        self.calkowite_obrazenia = 0
-        self.max_obrazen_na_spotkanie = 15 
         self.czas_czerwonego = 0
         self.czerwony_aktywny = False
         
@@ -63,11 +61,9 @@ class WscieklyPies:
         # Logika ataku
         kolizja = self.sprawdz_kolizje_z_graczem()
         if kolizja:
-            if not self.aktywny_atak and self.calkowite_obrazenia < self.max_obrazen_na_spotkanie:
+            if not self.aktywny_atak:
                 self.rozpocznij_atak(teraz)
-            elif (self.aktywny_atak and 
-                  teraz - self.czas_ostatniego_ataku > self.cooldown_ataku and
-                  self.calkowite_obrazenia < self.max_obrazen_na_spotkanie):
+            elif self.aktywny_atak and teraz - self.czas_ostatniego_ataku > self.cooldown_ataku:
                 self.kontynuuj_atak(teraz)
         else:
             self.zakoncz_atak()
@@ -88,11 +84,10 @@ class WscieklyPies:
                 self.gra.gracz.obraz = self.oryginalny_obraz_gracza
 
     def zadaj_obrazenia(self):
-        if not self.sprawdz_kolizje_z_graczem() or self.calkowite_obrazenia >= self.max_obrazen_na_spotkanie:
+        if not self.sprawdz_kolizje_z_graczem():
             return
             
         self.gra.gracz.energia = max(0, self.gra.gracz.energia - self.obrazenia)
-        self.calkowite_obrazenia += self.obrazenia
         print(f"Pies ugryzł! -{self.obrazenia} energii")
         
         # Aktywuj czerwony efekt
@@ -112,6 +107,5 @@ class WscieklyPies:
     def resetuj(self):
         self.x = self.startowe_x
         self.y = self.startowy_y
-        self.calkowite_obrazenia = 0
         self.czerwony_aktywny = False
         self.gra.gracz.obraz = self.oryginalny_obraz_gracza
