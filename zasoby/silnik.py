@@ -146,7 +146,7 @@ class Silnik:
     # 3. Paniszczurek i chmurka_roza (takie samo skalowanie)
         chmurka_roza_img = pg.image.load("spritey/chmurka_roza.png").convert_alpha()
         chmurka_roza_img = pg.transform.scale(chmurka_roza_img, (300, 300))
-        chmurka_roza = Przeszkoda(self, 840, 500, "chmurka_roza.png")
+        chmurka_roza = Przeszkoda(self, 600, 450, "chmurka_roza.png")
         chmurka_roza.obraz = chmurka_roza_img
 
         paniszczurek = Przeszkoda(
