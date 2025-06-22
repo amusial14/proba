@@ -134,7 +134,7 @@ class Silnik:
         
         chmurka_dokument_img = pg.image.load("spritey/chmurka_dokument.png").convert_alpha()
         chmurka_dokument_img = pg.transform.scale(chmurka_dokument_img, (250, 250))
-        chmurka_dokument = Przeszkoda(self, 310, 215, "chmurka_dokument.png")
+        chmurka_dokument = Przeszkoda(self, 310, 185, "chmurka_dokument.png")
         chmurka_dokument.obraz = chmurka_dokument_img
 
         nauczyciel = Przeszkoda(
@@ -146,7 +146,7 @@ class Silnik:
     # 3. Paniszczurek i chmurka_roza (takie samo skalowanie)
         chmurka_roza_img = pg.image.load("spritey/chmurka_roza.png").convert_alpha()
         chmurka_roza_img = pg.transform.scale(chmurka_roza_img, (250, 250))
-        chmurka_roza = Przeszkoda(self, 665, 420, "chmurka_roza.png")
+        chmurka_roza = Przeszkoda(self, 685, 420, "chmurka_roza.png")
         chmurka_roza.obraz = chmurka_roza_img
 
         paniszczurek = Przeszkoda(
