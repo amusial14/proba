@@ -2,7 +2,7 @@ import pygame as pg
 import os
 
 class Przeszkoda:
-    def __init__(self, gra, x, y, obrazek, wymagany_przedmiot=None, rozmiar=(90,90)):
+    def __init__(self, gra, x, y, obrazek, wymagany_przedmiot=None):
         self.gra = gra
         self.x = x
         self.y = y
@@ -12,7 +12,7 @@ class Przeszkoda:
 
         sciezka_obrazka = os.path.join("spritey", obrazek)
         self.obraz = pg.image.load(sciezka_obrazka).convert_alpha()
-        self.obraz = pg.transform.scale(self.obraz, rozmiar)
+        self.obraz = pg.transform.scale(self.obraz, (90,90))
         self.rect = self.obraz.get_rect(topleft=(x, y))  
 
     def rysuj(self, ekran):
